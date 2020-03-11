@@ -9,10 +9,18 @@ typedef struct {
     int cluster_id;
 } Point;
 
+
+typedef struct {
+    double x;
+    double y;
+} Centroid;
+
+
 void print_points_array(Point *points_array, int n_line);
 int get_index_factor(int n_lines, int n_cluster);
 int assign_cluster(int point_index, Point *points_array, int *cluster_indexes, int n_clusters);
 double calc_euclidean_distance(Point point, Point cluster);
+Centroid calc_centroid(Point *points_array, int n_line, int cluster_id);
 
 
 
@@ -73,8 +81,15 @@ int main(int argc, char *argv[]){
         points_array[i].cluster_id = assign_cluster(i, points_array, cluster_indexes, n_clusters);
     }
 
-    puts("First cluster assignment:");
+    puts("\nFirst cluster assignment:");
     print_points_array(points_array, n_line);
+
+
+    puts("\nNew centroids:");
+    for (i = 0; i < n_clusters; i++) {
+        Centroid centroid = calc_centroid(points_array, n_line, cluster_indexes[i]);
+        printf("%d: (%lf, %lf)\n", cluster_indexes[i], centroid.x, centroid.y);
+    }
 
 
     fclose(fin);
@@ -114,4 +129,21 @@ int assign_cluster(int point_index, Point *points_array, int *cluster_indexes, i
 
 double calc_euclidean_distance(Point point, Point cluster) {
     return sqrt(pow((point.x - cluster.x), 2) + pow((point.y - cluster.y), 2));
+}
+
+
+Centroid calc_centroid(Point *points_array, int n_line, int cluster_id) {
+    int i;
+    int n_points = 0;
+    Centroid centroid;
+    for (i = 0; i < n_line; i++) {
+        if (points_array[i].cluster_id == cluster_id) {
+            centroid.x = centroid.x + points_array[i].x;
+            centroid.y = centroid.y + points_array[i].y;
+            n_points++;
+        }
+    }
+    centroid.x = centroid.x / n_points;
+    centroid.y = centroid.y /n_points;
+    return centroid;
 }
