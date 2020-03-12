@@ -4,7 +4,7 @@
 #include <string.h>
 #include <math.h>
 
-#define N_COORDINATES 10
+#define N_COORDINATES 2
 #define TOLERANCE 0
 
 typedef struct {
