@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
+#include <time.h> 
 
 #define N_COORDINATES 2
 #define TOLERANCE 0
@@ -31,6 +32,7 @@ int main(int argc, char *argv[]){
     int n_iteration = 1;
     int isOK = 0;
     Point *points_array = malloc(d * sizeof(Point));
+    clock_t t;
 
     if (argc != 3) {
         printf("USAGE: %s [input file] [n. cluster]\n", argv[0]);
@@ -81,6 +83,9 @@ int main(int argc, char *argv[]){
 	}
 
     fclose(fin);
+
+    //Start chronometer
+    t = clock();
 
     puts("\nInput points:");
     print_points_array(points_array, n_line);
@@ -146,8 +151,14 @@ int main(int argc, char *argv[]){
         n_iteration++;
     }
 
+    //Stop chronometer
+    t = clock() - t;
+
+    double time_taken = ((double)t)/CLOCKS_PER_SEC;
+
     puts("\n------------------------------------------------------");
     puts("\nPROCESS ENDED SUCCESSFULLY!\n");
+    printf("\tExecution time: %lf s\n", time_taken);
     printf("\tNumber of iterations: %d\n", n_iteration - 1);
     printf("\tCentroids:\n");
     for (i = 0; i < n_clusters; i++) {
