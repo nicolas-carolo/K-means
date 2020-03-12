@@ -1,9 +1,10 @@
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
 
-#define N_COORDINATES 3
+#define N_COORDINATES 10
 #define TOLERANCE 0
 
 typedef struct {
@@ -22,14 +23,14 @@ Point calc_centroid(Point *points_array, int n_line, int cluster_id);
 int main(int argc, char *argv[]){
     FILE *fin;
     char buf[512];
-    //char line[512];
     int d = 10;
     int i;
+    int j;
+    int ctr;
     int n_line = 0;
     int n_iteration = 1;
     int isOK = 0;
     Point *points_array = malloc(d * sizeof(Point));
-    //Point points_array[d];
 
     if (argc != 3) {
         printf("USAGE: %s [input file] [n. cluster]\n", argv[0]);
@@ -40,12 +41,7 @@ int main(int argc, char *argv[]){
     int centroid_indexes[n_clusters];
     Point previous_centroids_array[n_clusters];
     Point actual_centroids_array[n_clusters];
-
     char newString[N_COORDINATES][512]; 
-    int j;
-    int ctr;
-
-    // int error_array[n_clusters];
 
     if (!(fin = fopen(argv[1], "r"))) {
         printf("the input file '%s' does not exist\n", argv[1]);
@@ -53,8 +49,6 @@ int main(int argc, char *argv[]){
 	}
 
     while (fgets(buf, sizeof(buf), fin)) {
-		// sscanf(buf, "%s\n", line);
-        //printf("%s", buf);
         j = 0;
         ctr = 0;
         for (i = 0; i <= (strlen(buf)); i++) {
@@ -93,7 +87,6 @@ int main(int argc, char *argv[]){
 
 
     while (n_iteration < 1 || isOK < n_clusters) {
-    //while (n_iteration < 2) {
 
         printf("\n%d iteration:\n", n_iteration);
 
@@ -116,7 +109,6 @@ int main(int argc, char *argv[]){
             for (i = 0; i < n_clusters; i++) {
                 Point centroid = calc_centroid(points_array, n_line, centroid_indexes[i]);
                 actual_centroids_array[i] = centroid;
-                //printf("\t%d: (%lf, %lf)\n", actual_centroids_array[i].cluster_id, actual_centroids_array[i].x, actual_centroids_array[i].y);
                 printf("\t%d: ", centroid_indexes[i]);
                 for (j = 0; j < N_COORDINATES; j++) {
                     printf("%lf ", actual_centroids_array[i].coordinate[j]);
@@ -153,6 +145,20 @@ int main(int argc, char *argv[]){
 
         n_iteration++;
     }
+
+    puts("\n------------------------------------------------------");
+    puts("\nPROCESS ENDED SUCCESSFULLY!\n");
+    printf("\tNumber of iterations: %d\n", n_iteration - 1);
+    printf("\tCentroids:\n");
+    for (i = 0; i < n_clusters; i++) {
+        printf("\t\t%d: ", actual_centroids_array[i].cluster_id);
+        for (j = 0; j < N_COORDINATES; j++) {
+            printf("%lf ", actual_centroids_array[i].coordinate[j]);
+        }
+        printf("\n");
+    }
+
+    puts("\n------------------------------------------------------\n");
     
 	free(points_array);
 
@@ -174,9 +180,11 @@ void print_points_array(Point *points_array, int n_line) {
 }
 
 
+
 int get_index_factor(int n_line, int n_clusters) {
     return n_line / n_clusters;
 }
+
 
 
 int assign_cluster(Point point, Point *actual_centroids_array, int n_clusters) {
@@ -194,6 +202,7 @@ int assign_cluster(Point point, Point *actual_centroids_array, int n_clusters) {
 }
 
 
+
 double calc_euclidean_distance(Point point, Point cluster) {
     int i;
     double distance_2 = 0;
@@ -202,6 +211,7 @@ double calc_euclidean_distance(Point point, Point cluster) {
     }
     return sqrt(distance_2);
 }
+
 
 
 Point calc_centroid(Point *points_array, int n_line, int cluster_id) {
@@ -214,8 +224,6 @@ Point calc_centroid(Point *points_array, int n_line, int cluster_id) {
             for (j = 0; j < N_COORDINATES; j++) {
                 centroid.coordinate[j] = centroid.coordinate[j] + points_array[i].coordinate[j];
             }
-            //centroid.x = centroid.x + points_array[i].x;
-            //centroid.y = centroid.y + points_array[i].y;
             n_points++;
         }
     }
@@ -223,10 +231,5 @@ Point calc_centroid(Point *points_array, int n_line, int cluster_id) {
         centroid.coordinate[i] = centroid.coordinate[i] / n_points;
     }
     centroid.cluster_id = cluster_id;
-    /*
-    centroid.x = centroid.x / n_points;
-    centroid.y = centroid.y /n_points;
-    centroid.cluster_id = cluster_id;
-    */
     return centroid;
 }
