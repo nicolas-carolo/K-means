@@ -91,7 +91,7 @@ int main(int argc, char *argv[]){
     print_points_array(points_array, n_line);
 
 
-    while (n_iteration < 1 || isOK < n_clusters) {
+    while (n_iteration < 2 || isOK < n_clusters) {
 
         printf("\n%d iteration:\n", n_iteration);
 
