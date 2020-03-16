@@ -5,7 +5,7 @@
 #include <math.h>
 #include <time.h> 
 
-#define N_COORDINATES 10
+#define N_COORDINATES 2
 #define TOLERANCE 0
 
 typedef struct {
@@ -15,7 +15,7 @@ typedef struct {
 
 
 void print_points_array(Point *points_array, int n_line);
-int get_index_factor(int n_lines, int n_cluster);
+//int get_index_factor(int n_lines, int n_cluster);
 int assign_cluster(Point point, Point *previous_centroids_array, int n_clusters);
 double calc_euclidean_distance(Point point, Point cluster);
 Point calc_centroid(Point *points_array, int n_line, int cluster_id);
@@ -96,8 +96,8 @@ int main(int argc, char *argv[]){
         printf("\n%d iteration:\n", n_iteration);
 
         if (n_iteration == 0) {
-            int base_index_factor = get_index_factor(n_line, n_clusters);
-            int index_factor = 0;
+            //int base_index_factor = get_index_factor(n_line, n_clusters);
+            //int index_factor = 0;
             for (i = 0; i < n_clusters; i++) {
                 for (j = 0; j < N_COORDINATES; j++) {
                     actual_centroids_array[i].coordinate[j] = points_array[i].coordinate[j];
@@ -183,10 +183,11 @@ void print_points_array(Point *points_array, int n_line) {
 }
 
 
-
+/*
 int get_index_factor(int n_line, int n_clusters) {
     return n_line / n_clusters;
 }
+*/
 
 
 
@@ -229,12 +230,12 @@ Point calc_centroid(Point *points_array, int n_line, int cluster_id) {
         n_points = 0;
         for (j = 0; j < n_line; j++) {
             if (points_array[j].cluster_id == cluster_id) {
-                //printf("%lf + %lf\n", sum, points_array[j].coordinate[i]);
+                printf("%lf + %lf\n", sum, points_array[j].coordinate[i]);
                 sum = sum + points_array[j].coordinate[i];
                 n_points++;
             }
         }
-        //printf("sum: %lf \t n_points: %d\n", sum, n_points);
+        printf("sum: %lf \t n_points: %d\n", sum, n_points);
         centroid.coordinate[i] = sum / (double)n_points;
     }
     centroid.cluster_id = cluster_id;

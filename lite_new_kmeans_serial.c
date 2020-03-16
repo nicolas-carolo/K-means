@@ -5,7 +5,7 @@
 #include <math.h>
 #include <time.h> 
 
-#define N_COORDINATES 115
+#define N_COORDINATES 2
 #define TOLERANCE 0
 
 typedef struct {
@@ -15,7 +15,7 @@ typedef struct {
 
 
 void print_points_array(Point *points_array, int n_line);
-int get_index_factor(int n_lines, int n_cluster);
+//int get_index_factor(int n_lines, int n_cluster);
 int assign_cluster(Point point, Point *previous_centroids_array, int n_clusters);
 double calc_euclidean_distance(Point point, Point cluster);
 Point calc_centroid(Point *points_array, int n_line, int cluster_id);
@@ -96,8 +96,8 @@ int main(int argc, char *argv[]){
 
         //puts("\n\tActual centroids:");
         if (n_iteration == 0) {
-            int base_index_factor = get_index_factor(n_line, n_clusters);
-            int index_factor = 0;
+            //int base_index_factor = get_index_factor(n_line, n_clusters);
+            //int index_factor = 0;
             for (i = 0; i < n_clusters; i++) {
                 for (j = 0; j < N_COORDINATES; j++) {
                     actual_centroids_array[i].coordinate[j] = points_array[i].coordinate[j];
@@ -150,8 +150,8 @@ int main(int argc, char *argv[]){
 
     double time_taken = ((double)t)/CLOCKS_PER_SEC;
 
-    puts("Final cluster assignment");
-    print_points_array(points_array, n_line);
+    //puts("Final cluster assignment");
+    //print_points_array(points_array, n_line);
 
     puts("\n------------------------------------------------------");
     puts("\nPROCESS ENDED SUCCESSFULLY!\n");
@@ -188,10 +188,11 @@ void print_points_array(Point *points_array, int n_line) {
 }
 
 
-
+/*
 int get_index_factor(int n_line, int n_clusters) {
     return n_line / n_clusters;
 }
+*/
 
 
 
