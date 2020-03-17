@@ -5,8 +5,8 @@
 #include <math.h>
 #include <time.h> 
 
-#define N_COORDINATES 2
-#define TOLERANCE 0
+#define N_COORDINATES 10
+#define TOLERANCE 0.001
 
 typedef struct {
     double coordinate[N_COORDINATES];

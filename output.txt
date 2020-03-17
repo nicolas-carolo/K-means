@@ -1,0 +1,509 @@
+
+Input points:
+	1: 485.595000 820.327000 assigned to cluster -1
+	2: -12.360000 401.932000 assigned to cluster -1
+	3: 279.429000 -800.548000 assigned to cluster -1
+	4: -169.120000 -799.520000 assigned to cluster -1
+	5: -579.989000 -253.605000 assigned to cluster -1
+	6: -444.251000 290.570000 assigned to cluster -1
+	7: 136.574000 -987.647000 assigned to cluster -1
+	8: -540.105000 -701.747000 assigned to cluster -1
+	9: -732.994000 -691.822000 assigned to cluster -1
+	10: 881.607000 331.649000 assigned to cluster -1
+	11: 868.883000 701.743000 assigned to cluster -1
+	12: -172.227000 -530.106000 assigned to cluster -1
+	13: 300.803000 184.530000 assigned to cluster -1
+	14: -425.576000 86.305000 assigned to cluster -1
+	15: -246.689000 639.553000 assigned to cluster -1
+	16: -407.477000 -910.363000 assigned to cluster -1
+	17: -828.757000 107.065000 assigned to cluster -1
+	18: 562.200000 -550.131000 assigned to cluster -1
+	19: 526.527000 -368.173000 assigned to cluster -1
+	20: 109.793000 -757.872000 assigned to cluster -1
+	21: -575.240000 -299.212000 assigned to cluster -1
+	22: 100.975000 946.651000 assigned to cluster -1
+	23: 39.660000 -878.185000 assigned to cluster -1
+	24: -839.495000 -649.904000 assigned to cluster -1
+	25: -286.073000 930.573000 assigned to cluster -1
+	26: -806.225000 -40.615000 assigned to cluster -1
+	27: 81.211000 -744.876000 assigned to cluster -1
+	28: 930.192000 643.133000 assigned to cluster -1
+	29: 109.407000 745.205000 assigned to cluster -1
+	30: -530.928000 -505.928000 assigned to cluster -1
+	31: -821.349000 500.018000 assigned to cluster -1
+	32: 209.450000 497.511000 assigned to cluster -1
+	33: -155.515000 257.715000 assigned to cluster -1
+	34: -439.789000 62.375000 assigned to cluster -1
+	35: -129.892000 -863.289000 assigned to cluster -1
+	36: 393.122000 -947.534000 assigned to cluster -1
+	37: 461.670000 -473.374000 assigned to cluster -1
+	38: -327.921000 -960.113000 assigned to cluster -1
+	39: -778.324000 150.552000 assigned to cluster -1
+	40: -168.681000 -948.062000 assigned to cluster -1
+	41: 233.864000 363.113000 assigned to cluster -1
+	42: 333.988000 908.033000 assigned to cluster -1
+	43: 9.115000 521.135000 assigned to cluster -1
+	44: -296.968000 225.667000 assigned to cluster -1
+	45: -642.515000 -865.732000 assigned to cluster -1
+	46: 322.993000 -818.368000 assigned to cluster -1
+	47: -680.474000 -742.601000 assigned to cluster -1
+	48: 802.469000 -941.917000 assigned to cluster -1
+	49: 125.161000 265.770000 assigned to cluster -1
+	50: 399.431000 -66.003000 assigned to cluster -1
+
+0 iteration:
+
+	Centroids:
+	1: 485.595000 820.327000 assigned to cluster 1
+	2: -12.360000 401.932000 assigned to cluster 2
+	3: 279.429000 -800.548000 assigned to cluster 3
+
+	Cluster assignment:
+	1: 485.595000 820.327000 assigned to cluster 1
+	2: -12.360000 401.932000 assigned to cluster 2
+	3: 279.429000 -800.548000 assigned to cluster 3
+	4: -169.120000 -799.520000 assigned to cluster 3
+	5: -579.989000 -253.605000 assigned to cluster 2
+	6: -444.251000 290.570000 assigned to cluster 2
+	7: 136.574000 -987.647000 assigned to cluster 3
+	8: -540.105000 -701.747000 assigned to cluster 3
+	9: -732.994000 -691.822000 assigned to cluster 3
+	10: 881.607000 331.649000 assigned to cluster 1
+	11: 868.883000 701.743000 assigned to cluster 1
+	12: -172.227000 -530.106000 assigned to cluster 3
+	13: 300.803000 184.530000 assigned to cluster 2
+	14: -425.576000 86.305000 assigned to cluster 2
+	15: -246.689000 639.553000 assigned to cluster 2
+	16: -407.477000 -910.363000 assigned to cluster 3
+	17: -828.757000 107.065000 assigned to cluster 2
+	18: 562.200000 -550.131000 assigned to cluster 3
+	19: 526.527000 -368.173000 assigned to cluster 3
+	20: 109.793000 -757.872000 assigned to cluster 3
+	21: -575.240000 -299.212000 assigned to cluster 2
+	22: 100.975000 946.651000 assigned to cluster 1
+	23: 39.660000 -878.185000 assigned to cluster 3
+	24: -839.495000 -649.904000 assigned to cluster 3
+	25: -286.073000 930.573000 assigned to cluster 2
+	26: -806.225000 -40.615000 assigned to cluster 2
+	27: 81.211000 -744.876000 assigned to cluster 3
+	28: 930.192000 643.133000 assigned to cluster 1
+	29: 109.407000 745.205000 assigned to cluster 2
+	30: -530.928000 -505.928000 assigned to cluster 3
+	31: -821.349000 500.018000 assigned to cluster 2
+	32: 209.450000 497.511000 assigned to cluster 2
+	33: -155.515000 257.715000 assigned to cluster 2
+	34: -439.789000 62.375000 assigned to cluster 2
+	35: -129.892000 -863.289000 assigned to cluster 3
+	36: 393.122000 -947.534000 assigned to cluster 3
+	37: 461.670000 -473.374000 assigned to cluster 3
+	38: -327.921000 -960.113000 assigned to cluster 3
+	39: -778.324000 150.552000 assigned to cluster 2
+	40: -168.681000 -948.062000 assigned to cluster 3
+	41: 233.864000 363.113000 assigned to cluster 2
+	42: 333.988000 908.033000 assigned to cluster 1
+	43: 9.115000 521.135000 assigned to cluster 2
+	44: -296.968000 225.667000 assigned to cluster 2
+	45: -642.515000 -865.732000 assigned to cluster 3
+	46: 322.993000 -818.368000 assigned to cluster 3
+	47: -680.474000 -742.601000 assigned to cluster 3
+	48: 802.469000 -941.917000 assigned to cluster 3
+	49: 125.161000 265.770000 assigned to cluster 2
+	50: 399.431000 -66.003000 assigned to cluster 2
+
+1 iteration:
+
+	Centroids:
+	1: 600.206667 725.256000 assigned to cluster 1
+	2: -252.851143 265.245429 assigned to cluster 2
+	3: -70.703522 -758.165739 assigned to cluster 3
+
+	Cluster assignment:
+	1: 485.595000 820.327000 assigned to cluster 1
+	2: -12.360000 401.932000 assigned to cluster 2
+	3: 279.429000 -800.548000 assigned to cluster 3
+	4: -169.120000 -799.520000 assigned to cluster 3
+	5: -579.989000 -253.605000 assigned to cluster 2
+	6: -444.251000 290.570000 assigned to cluster 2
+	7: 136.574000 -987.647000 assigned to cluster 3
+	8: -540.105000 -701.747000 assigned to cluster 3
+	9: -732.994000 -691.822000 assigned to cluster 3
+	10: 881.607000 331.649000 assigned to cluster 1
+	11: 868.883000 701.743000 assigned to cluster 1
+	12: -172.227000 -530.106000 assigned to cluster 3
+	13: 300.803000 184.530000 assigned to cluster 2
+	14: -425.576000 86.305000 assigned to cluster 2
+	15: -246.689000 639.553000 assigned to cluster 2
+	16: -407.477000 -910.363000 assigned to cluster 3
+	17: -828.757000 107.065000 assigned to cluster 2
+	18: 562.200000 -550.131000 assigned to cluster 3
+	19: 526.527000 -368.173000 assigned to cluster 3
+	20: 109.793000 -757.872000 assigned to cluster 3
+	21: -575.240000 -299.212000 assigned to cluster 2
+	22: 100.975000 946.651000 assigned to cluster 1
+	23: 39.660000 -878.185000 assigned to cluster 3
+	24: -839.495000 -649.904000 assigned to cluster 3
+	25: -286.073000 930.573000 assigned to cluster 2
+	26: -806.225000 -40.615000 assigned to cluster 2
+	27: 81.211000 -744.876000 assigned to cluster 3
+	28: 930.192000 643.133000 assigned to cluster 1
+	29: 109.407000 745.205000 assigned to cluster 1
+	30: -530.928000 -505.928000 assigned to cluster 3
+	31: -821.349000 500.018000 assigned to cluster 2
+	32: 209.450000 497.511000 assigned to cluster 1
+	33: -155.515000 257.715000 assigned to cluster 2
+	34: -439.789000 62.375000 assigned to cluster 2
+	35: -129.892000 -863.289000 assigned to cluster 3
+	36: 393.122000 -947.534000 assigned to cluster 3
+	37: 461.670000 -473.374000 assigned to cluster 3
+	38: -327.921000 -960.113000 assigned to cluster 3
+	39: -778.324000 150.552000 assigned to cluster 2
+	40: -168.681000 -948.062000 assigned to cluster 3
+	41: 233.864000 363.113000 assigned to cluster 2
+	42: 333.988000 908.033000 assigned to cluster 1
+	43: 9.115000 521.135000 assigned to cluster 2
+	44: -296.968000 225.667000 assigned to cluster 2
+	45: -642.515000 -865.732000 assigned to cluster 3
+	46: 322.993000 -818.368000 assigned to cluster 3
+	47: -680.474000 -742.601000 assigned to cluster 3
+	48: 802.469000 -941.917000 assigned to cluster 3
+	49: 125.161000 265.770000 assigned to cluster 2
+	50: 399.431000 -66.003000 assigned to cluster 2
+
+	New-old centroids distances:
+	1: error = 148.910474
+	2: error = 276.621056
+	3: error = 352.688303
+
+2 iteration:
+
+	Centroids:
+	1: 490.012125 699.281500 assigned to cluster 1
+	2: -296.249000 227.759895 assigned to cluster 2
+	3: -70.703522 -758.165739 assigned to cluster 3
+
+	Cluster assignment:
+	1: 485.595000 820.327000 assigned to cluster 1
+	2: -12.360000 401.932000 assigned to cluster 2
+	3: 279.429000 -800.548000 assigned to cluster 3
+	4: -169.120000 -799.520000 assigned to cluster 3
+	5: -579.989000 -253.605000 assigned to cluster 2
+	6: -444.251000 290.570000 assigned to cluster 2
+	7: 136.574000 -987.647000 assigned to cluster 3
+	8: -540.105000 -701.747000 assigned to cluster 3
+	9: -732.994000 -691.822000 assigned to cluster 3
+	10: 881.607000 331.649000 assigned to cluster 1
+	11: 868.883000 701.743000 assigned to cluster 1
+	12: -172.227000 -530.106000 assigned to cluster 3
+	13: 300.803000 184.530000 assigned to cluster 1
+	14: -425.576000 86.305000 assigned to cluster 2
+	15: -246.689000 639.553000 assigned to cluster 2
+	16: -407.477000 -910.363000 assigned to cluster 3
+	17: -828.757000 107.065000 assigned to cluster 2
+	18: 562.200000 -550.131000 assigned to cluster 3
+	19: 526.527000 -368.173000 assigned to cluster 3
+	20: 109.793000 -757.872000 assigned to cluster 3
+	21: -575.240000 -299.212000 assigned to cluster 2
+	22: 100.975000 946.651000 assigned to cluster 1
+	23: 39.660000 -878.185000 assigned to cluster 3
+	24: -839.495000 -649.904000 assigned to cluster 3
+	25: -286.073000 930.573000 assigned to cluster 2
+	26: -806.225000 -40.615000 assigned to cluster 2
+	27: 81.211000 -744.876000 assigned to cluster 3
+	28: 930.192000 643.133000 assigned to cluster 1
+	29: 109.407000 745.205000 assigned to cluster 1
+	30: -530.928000 -505.928000 assigned to cluster 3
+	31: -821.349000 500.018000 assigned to cluster 2
+	32: 209.450000 497.511000 assigned to cluster 1
+	33: -155.515000 257.715000 assigned to cluster 2
+	34: -439.789000 62.375000 assigned to cluster 2
+	35: -129.892000 -863.289000 assigned to cluster 3
+	36: 393.122000 -947.534000 assigned to cluster 3
+	37: 461.670000 -473.374000 assigned to cluster 3
+	38: -327.921000 -960.113000 assigned to cluster 3
+	39: -778.324000 150.552000 assigned to cluster 2
+	40: -168.681000 -948.062000 assigned to cluster 3
+	41: 233.864000 363.113000 assigned to cluster 1
+	42: 333.988000 908.033000 assigned to cluster 1
+	43: 9.115000 521.135000 assigned to cluster 2
+	44: -296.968000 225.667000 assigned to cluster 2
+	45: -642.515000 -865.732000 assigned to cluster 3
+	46: 322.993000 -818.368000 assigned to cluster 3
+	47: -680.474000 -742.601000 assigned to cluster 3
+	48: 802.469000 -941.917000 assigned to cluster 3
+	49: 125.161000 265.770000 assigned to cluster 2
+	50: 399.431000 -66.003000 assigned to cluster 2
+
+	New-old centroids distances:
+	1: error = 113.214450
+	2: error = 57.345787
+	3: error = 0.000000
+
+3 iteration:
+
+	Centroids:
+	1: 445.476400 614.189500 assigned to cluster 1
+	2: -362.552824 222.340882 assigned to cluster 2
+	3: -70.703522 -758.165739 assigned to cluster 3
+
+	Cluster assignment:
+	1: 485.595000 820.327000 assigned to cluster 1
+	2: -12.360000 401.932000 assigned to cluster 2
+	3: 279.429000 -800.548000 assigned to cluster 3
+	4: -169.120000 -799.520000 assigned to cluster 3
+	5: -579.989000 -253.605000 assigned to cluster 2
+	6: -444.251000 290.570000 assigned to cluster 2
+	7: 136.574000 -987.647000 assigned to cluster 3
+	8: -540.105000 -701.747000 assigned to cluster 3
+	9: -732.994000 -691.822000 assigned to cluster 3
+	10: 881.607000 331.649000 assigned to cluster 1
+	11: 868.883000 701.743000 assigned to cluster 1
+	12: -172.227000 -530.106000 assigned to cluster 3
+	13: 300.803000 184.530000 assigned to cluster 1
+	14: -425.576000 86.305000 assigned to cluster 2
+	15: -246.689000 639.553000 assigned to cluster 2
+	16: -407.477000 -910.363000 assigned to cluster 3
+	17: -828.757000 107.065000 assigned to cluster 2
+	18: 562.200000 -550.131000 assigned to cluster 3
+	19: 526.527000 -368.173000 assigned to cluster 3
+	20: 109.793000 -757.872000 assigned to cluster 3
+	21: -575.240000 -299.212000 assigned to cluster 2
+	22: 100.975000 946.651000 assigned to cluster 1
+	23: 39.660000 -878.185000 assigned to cluster 3
+	24: -839.495000 -649.904000 assigned to cluster 3
+	25: -286.073000 930.573000 assigned to cluster 2
+	26: -806.225000 -40.615000 assigned to cluster 2
+	27: 81.211000 -744.876000 assigned to cluster 3
+	28: 930.192000 643.133000 assigned to cluster 1
+	29: 109.407000 745.205000 assigned to cluster 1
+	30: -530.928000 -505.928000 assigned to cluster 3
+	31: -821.349000 500.018000 assigned to cluster 2
+	32: 209.450000 497.511000 assigned to cluster 1
+	33: -155.515000 257.715000 assigned to cluster 2
+	34: -439.789000 62.375000 assigned to cluster 2
+	35: -129.892000 -863.289000 assigned to cluster 3
+	36: 393.122000 -947.534000 assigned to cluster 3
+	37: 461.670000 -473.374000 assigned to cluster 3
+	38: -327.921000 -960.113000 assigned to cluster 3
+	39: -778.324000 150.552000 assigned to cluster 2
+	40: -168.681000 -948.062000 assigned to cluster 3
+	41: 233.864000 363.113000 assigned to cluster 1
+	42: 333.988000 908.033000 assigned to cluster 1
+	43: 9.115000 521.135000 assigned to cluster 1
+	44: -296.968000 225.667000 assigned to cluster 2
+	45: -642.515000 -865.732000 assigned to cluster 3
+	46: 322.993000 -818.368000 assigned to cluster 3
+	47: -680.474000 -742.601000 assigned to cluster 3
+	48: 802.469000 -941.917000 assigned to cluster 3
+	49: 125.161000 265.770000 assigned to cluster 1
+	50: 399.431000 -66.003000 assigned to cluster 1
+
+	New-old centroids distances:
+	1: error = 96.042070
+	2: error = 66.524903
+	3: error = 0.000000
+
+4 iteration:
+
+	Centroids:
+	1: 383.728538 527.907462 assigned to cluster 1
+	2: -478.364643 218.492357 assigned to cluster 2
+	3: -70.703522 -758.165739 assigned to cluster 3
+
+	Cluster assignment:
+	1: 485.595000 820.327000 assigned to cluster 1
+	2: -12.360000 401.932000 assigned to cluster 1
+	3: 279.429000 -800.548000 assigned to cluster 3
+	4: -169.120000 -799.520000 assigned to cluster 3
+	5: -579.989000 -253.605000 assigned to cluster 2
+	6: -444.251000 290.570000 assigned to cluster 2
+	7: 136.574000 -987.647000 assigned to cluster 3
+	8: -540.105000 -701.747000 assigned to cluster 3
+	9: -732.994000 -691.822000 assigned to cluster 3
+	10: 881.607000 331.649000 assigned to cluster 1
+	11: 868.883000 701.743000 assigned to cluster 1
+	12: -172.227000 -530.106000 assigned to cluster 3
+	13: 300.803000 184.530000 assigned to cluster 1
+	14: -425.576000 86.305000 assigned to cluster 2
+	15: -246.689000 639.553000 assigned to cluster 2
+	16: -407.477000 -910.363000 assigned to cluster 3
+	17: -828.757000 107.065000 assigned to cluster 2
+	18: 562.200000 -550.131000 assigned to cluster 3
+	19: 526.527000 -368.173000 assigned to cluster 3
+	20: 109.793000 -757.872000 assigned to cluster 3
+	21: -575.240000 -299.212000 assigned to cluster 2
+	22: 100.975000 946.651000 assigned to cluster 1
+	23: 39.660000 -878.185000 assigned to cluster 3
+	24: -839.495000 -649.904000 assigned to cluster 3
+	25: -286.073000 930.573000 assigned to cluster 2
+	26: -806.225000 -40.615000 assigned to cluster 2
+	27: 81.211000 -744.876000 assigned to cluster 3
+	28: 930.192000 643.133000 assigned to cluster 1
+	29: 109.407000 745.205000 assigned to cluster 1
+	30: -530.928000 -505.928000 assigned to cluster 3
+	31: -821.349000 500.018000 assigned to cluster 2
+	32: 209.450000 497.511000 assigned to cluster 1
+	33: -155.515000 257.715000 assigned to cluster 2
+	34: -439.789000 62.375000 assigned to cluster 2
+	35: -129.892000 -863.289000 assigned to cluster 3
+	36: 393.122000 -947.534000 assigned to cluster 3
+	37: 461.670000 -473.374000 assigned to cluster 3
+	38: -327.921000 -960.113000 assigned to cluster 3
+	39: -778.324000 150.552000 assigned to cluster 2
+	40: -168.681000 -948.062000 assigned to cluster 3
+	41: 233.864000 363.113000 assigned to cluster 1
+	42: 333.988000 908.033000 assigned to cluster 1
+	43: 9.115000 521.135000 assigned to cluster 1
+	44: -296.968000 225.667000 assigned to cluster 2
+	45: -642.515000 -865.732000 assigned to cluster 3
+	46: 322.993000 -818.368000 assigned to cluster 3
+	47: -680.474000 -742.601000 assigned to cluster 3
+	48: 802.469000 -941.917000 assigned to cluster 3
+	49: 125.161000 265.770000 assigned to cluster 1
+	50: 399.431000 -66.003000 assigned to cluster 1
+
+	New-old centroids distances:
+	1: error = 106.100841
+	2: error = 115.875747
+	3: error = 0.000000
+
+5 iteration:
+
+	Centroids:
+	1: 355.436500 518.909214 assigned to cluster 1
+	2: -514.211154 204.381615 assigned to cluster 2
+	3: -70.703522 -758.165739 assigned to cluster 3
+
+	Cluster assignment:
+	1: 485.595000 820.327000 assigned to cluster 1
+	2: -12.360000 401.932000 assigned to cluster 1
+	3: 279.429000 -800.548000 assigned to cluster 3
+	4: -169.120000 -799.520000 assigned to cluster 3
+	5: -579.989000 -253.605000 assigned to cluster 2
+	6: -444.251000 290.570000 assigned to cluster 2
+	7: 136.574000 -987.647000 assigned to cluster 3
+	8: -540.105000 -701.747000 assigned to cluster 3
+	9: -732.994000 -691.822000 assigned to cluster 3
+	10: 881.607000 331.649000 assigned to cluster 1
+	11: 868.883000 701.743000 assigned to cluster 1
+	12: -172.227000 -530.106000 assigned to cluster 3
+	13: 300.803000 184.530000 assigned to cluster 1
+	14: -425.576000 86.305000 assigned to cluster 2
+	15: -246.689000 639.553000 assigned to cluster 2
+	16: -407.477000 -910.363000 assigned to cluster 3
+	17: -828.757000 107.065000 assigned to cluster 2
+	18: 562.200000 -550.131000 assigned to cluster 3
+	19: 526.527000 -368.173000 assigned to cluster 3
+	20: 109.793000 -757.872000 assigned to cluster 3
+	21: -575.240000 -299.212000 assigned to cluster 2
+	22: 100.975000 946.651000 assigned to cluster 1
+	23: 39.660000 -878.185000 assigned to cluster 3
+	24: -839.495000 -649.904000 assigned to cluster 3
+	25: -286.073000 930.573000 assigned to cluster 2
+	26: -806.225000 -40.615000 assigned to cluster 2
+	27: 81.211000 -744.876000 assigned to cluster 3
+	28: 930.192000 643.133000 assigned to cluster 1
+	29: 109.407000 745.205000 assigned to cluster 1
+	30: -530.928000 -505.928000 assigned to cluster 3
+	31: -821.349000 500.018000 assigned to cluster 2
+	32: 209.450000 497.511000 assigned to cluster 1
+	33: -155.515000 257.715000 assigned to cluster 2
+	34: -439.789000 62.375000 assigned to cluster 2
+	35: -129.892000 -863.289000 assigned to cluster 3
+	36: 393.122000 -947.534000 assigned to cluster 3
+	37: 461.670000 -473.374000 assigned to cluster 3
+	38: -327.921000 -960.113000 assigned to cluster 3
+	39: -778.324000 150.552000 assigned to cluster 2
+	40: -168.681000 -948.062000 assigned to cluster 3
+	41: 233.864000 363.113000 assigned to cluster 1
+	42: 333.988000 908.033000 assigned to cluster 1
+	43: 9.115000 521.135000 assigned to cluster 1
+	44: -296.968000 225.667000 assigned to cluster 2
+	45: -642.515000 -865.732000 assigned to cluster 3
+	46: 322.993000 -818.368000 assigned to cluster 3
+	47: -680.474000 -742.601000 assigned to cluster 3
+	48: 802.469000 -941.917000 assigned to cluster 3
+	49: 125.161000 265.770000 assigned to cluster 1
+	50: 399.431000 -66.003000 assigned to cluster 1
+
+	New-old centroids distances:
+	1: error = 29.688515
+	2: error = 38.523829
+	3: error = 0.000000
+
+6 iteration:
+
+	Centroids:
+	1: 355.436500 518.909214 assigned to cluster 1
+	2: -514.211154 204.381615 assigned to cluster 2
+	3: -70.703522 -758.165739 assigned to cluster 3
+
+	Cluster assignment:
+	1: 485.595000 820.327000 assigned to cluster 1
+	2: -12.360000 401.932000 assigned to cluster 1
+	3: 279.429000 -800.548000 assigned to cluster 3
+	4: -169.120000 -799.520000 assigned to cluster 3
+	5: -579.989000 -253.605000 assigned to cluster 2
+	6: -444.251000 290.570000 assigned to cluster 2
+	7: 136.574000 -987.647000 assigned to cluster 3
+	8: -540.105000 -701.747000 assigned to cluster 3
+	9: -732.994000 -691.822000 assigned to cluster 3
+	10: 881.607000 331.649000 assigned to cluster 1
+	11: 868.883000 701.743000 assigned to cluster 1
+	12: -172.227000 -530.106000 assigned to cluster 3
+	13: 300.803000 184.530000 assigned to cluster 1
+	14: -425.576000 86.305000 assigned to cluster 2
+	15: -246.689000 639.553000 assigned to cluster 2
+	16: -407.477000 -910.363000 assigned to cluster 3
+	17: -828.757000 107.065000 assigned to cluster 2
+	18: 562.200000 -550.131000 assigned to cluster 3
+	19: 526.527000 -368.173000 assigned to cluster 3
+	20: 109.793000 -757.872000 assigned to cluster 3
+	21: -575.240000 -299.212000 assigned to cluster 2
+	22: 100.975000 946.651000 assigned to cluster 1
+	23: 39.660000 -878.185000 assigned to cluster 3
+	24: -839.495000 -649.904000 assigned to cluster 3
+	25: -286.073000 930.573000 assigned to cluster 2
+	26: -806.225000 -40.615000 assigned to cluster 2
+	27: 81.211000 -744.876000 assigned to cluster 3
+	28: 930.192000 643.133000 assigned to cluster 1
+	29: 109.407000 745.205000 assigned to cluster 1
+	30: -530.928000 -505.928000 assigned to cluster 3
+	31: -821.349000 500.018000 assigned to cluster 2
+	32: 209.450000 497.511000 assigned to cluster 1
+	33: -155.515000 257.715000 assigned to cluster 2
+	34: -439.789000 62.375000 assigned to cluster 2
+	35: -129.892000 -863.289000 assigned to cluster 3
+	36: 393.122000 -947.534000 assigned to cluster 3
+	37: 461.670000 -473.374000 assigned to cluster 3
+	38: -327.921000 -960.113000 assigned to cluster 3
+	39: -778.324000 150.552000 assigned to cluster 2
+	40: -168.681000 -948.062000 assigned to cluster 3
+	41: 233.864000 363.113000 assigned to cluster 1
+	42: 333.988000 908.033000 assigned to cluster 1
+	43: 9.115000 521.135000 assigned to cluster 1
+	44: -296.968000 225.667000 assigned to cluster 2
+	45: -642.515000 -865.732000 assigned to cluster 3
+	46: 322.993000 -818.368000 assigned to cluster 3
+	47: -680.474000 -742.601000 assigned to cluster 3
+	48: 802.469000 -941.917000 assigned to cluster 3
+	49: 125.161000 265.770000 assigned to cluster 1
+	50: 399.431000 -66.003000 assigned to cluster 1
+
+	New-old centroids distances:
+	1: error = 0.000000
+	2: error = 0.000000
+	3: error = 0.000000
+
+------------------------------------------------------
+
+PROCESS ENDED SUCCESSFULLY!
+
+	Execution time: 0.006612 s
+	Number of iterations: 6
+	Centroids:
+		1: 355.436500 518.909214 
+		2: -514.211154 204.381615 
+		3: -70.703522 -758.165739 
+
+------------------------------------------------------
+

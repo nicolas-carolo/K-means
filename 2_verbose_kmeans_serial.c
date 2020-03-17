@@ -17,7 +17,7 @@ typedef struct {
 void print_points_array(Point *points_array, int n_line);
 int assign_cluster(Point point, Point *previous_centroids_array, int n_clusters);
 double calc_euclidean_distance(Point point, Point cluster);
-Point calc_centroid(Point *points_array, int n_line, int cluster_id);
+Point *calc_centroids(Point *points_array, int n_line, int n_clusters);
 
 
 int main(int argc, char *argv[]){
@@ -101,10 +101,14 @@ int main(int argc, char *argv[]){
                 actual_centroids_array[i].cluster_id = i + 1;
             }
         } else {
+            //actual_centroids_array = calc_centroids(points_array, n_line, n_clusters);
+            memcpy(actual_centroids_array, calc_centroids(points_array, n_line, n_clusters), n_clusters * sizeof(Point));
+            /*
             for (i = 0; i < n_clusters; i++) {
                 Point centroid = calc_centroid(points_array, n_line, i + 1);
                 actual_centroids_array[i] = centroid;
             }
+            */
         }
         
 
@@ -207,27 +211,31 @@ double calc_euclidean_distance(Point point, Point cluster) {
 
 
 
-Point calc_centroid(Point *points_array, int n_line, int cluster_id) {
+Point *calc_centroids(Point *points_array, int n_line, int n_clusters) {
     int i;
     int j;
-    double sum;
-    int n_points;
-    Point centroid;
+    Point *centroids = malloc(n_clusters * sizeof(Point));
+    int n_points[n_clusters];
+    int centroid_index;
+    memset(n_points, 0, sizeof(n_points));
     
-    for (i = 0; i < N_COORDINATES; i++) {
-        sum = 0;
-        n_points = 0;
-        for (j = 0; j < n_line; j++) {
-            if (points_array[j].cluster_id == cluster_id) {
-                //printf("%lf + %lf\n", sum, points_array[j].coordinate[i]);
-                sum = sum + points_array[j].coordinate[i];
-                n_points++;
+    for (i = 0; i < n_line; i++) {
+        centroid_index = points_array[i].cluster_id - 1;
+        for (j = 0; j < N_COORDINATES; j++) {
+            if (n_points[centroid_index] == 0) {
+                centroids[centroid_index].coordinate[j] = 0;
             }
+            centroids[centroid_index].coordinate[j] += points_array[i].coordinate[j];
         }
-        //printf("sum: %lf \t n_points: %d\n", sum, n_points);
-        centroid.coordinate[i] = sum / (double)n_points;
+        n_points[centroid_index]++;
     }
-    centroid.cluster_id = cluster_id;
 
-    return centroid;
+    for (i = 0; i < n_clusters; i++) {
+        for (j = 0; j < N_COORDINATES; j++) {
+            centroids[i].coordinate[j] = centroids[i].coordinate[j] / (double)n_points[i];
+        }
+        centroids[i].cluster_id = i + 1;
+    }
+
+    return centroids;
 }

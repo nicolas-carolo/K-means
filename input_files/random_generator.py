@@ -4,8 +4,8 @@ import random
 def main():
     min_value = -1000
     max_value = 1000
-    coordinate_dimension = 50
-    n_coordinates = 50000
+    coordinate_dimension = 2
+    n_coordinates = 50
     f = open("input.txt","w+")
     for i in range(n_coordinates):
         for j in range(coordinate_dimension):
