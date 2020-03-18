@@ -95,20 +95,11 @@ int main(int argc, char *argv[]){
 
         if (n_iteration == 0) {
             for (i = 0; i < n_clusters; i++) {
-                for (j = 0; j < N_COORDINATES; j++) {
-                    actual_centroids_array[i].coordinate[j] = points_array[i].coordinate[j];
-                }
+                memcpy(actual_centroids_array[i].coordinate, points_array[i].coordinate, N_COORDINATES * sizeof(double));
                 actual_centroids_array[i].cluster_id = i + 1;
             }
         } else {
-            //actual_centroids_array = calc_centroids(points_array, n_line, n_clusters);
             memcpy(actual_centroids_array, calc_centroids(points_array, n_line, n_clusters), n_clusters * sizeof(Point));
-            /*
-            for (i = 0; i < n_clusters; i++) {
-                Point centroid = calc_centroid(points_array, n_line, i + 1);
-                actual_centroids_array[i] = centroid;
-            }
-            */
         }
         
 
