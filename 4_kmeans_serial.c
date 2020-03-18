@@ -5,7 +5,7 @@
 #include <math.h>
 #include <time.h> 
 
-#define N_COORDINATES 2
+#define N_COORDINATES 115
 #define TOLERANCE 0.001
 
 typedef struct {
@@ -22,7 +22,6 @@ Point *calc_centroids(Point *points_array, int n_line, int n_clusters);
 
 int main(int argc, char *argv[]){
     FILE *fin;
-    char buf[512];
     int d = 10;
     int i;
     int j;
@@ -31,7 +30,7 @@ int main(int argc, char *argv[]){
     int n_iteration = 0;
     int isOK = 0;
     Point *points_array = malloc(d * sizeof(Point));
-    clock_t t;
+    clock_t t, t_part;
 
     if (argc != 3) {
         printf("USAGE: %s [input file] [n. cluster]\n", argv[0]);
@@ -41,7 +40,8 @@ int main(int argc, char *argv[]){
     int n_clusters = atoi(argv[2]);
     Point previous_centroids_array[n_clusters];
     Point actual_centroids_array[n_clusters];
-    char newString[N_COORDINATES][512]; 
+    char newString[N_COORDINATES][512];
+    char buf[16384];
 
     if (!(fin = fopen(argv[1], "r"))) {
         printf("the input file '%s' does not exist\n", argv[1]);
@@ -53,7 +53,7 @@ int main(int argc, char *argv[]){
         ctr = 0;
         for (i = 0; i <= (strlen(buf)); i++) {
         // if space or NULL found, assign NULL into newString[ctr]
-            if (buf[i] == ',' || buf[i] == ' ' || buf[i] == '\0' || buf[i] == '\n') {
+            if (buf[i] == ',' || buf[i] == '\0') {
                 newString[ctr][j]='\0';
                 ctr++;  //for next word
                 j = 0;    //for next word, init index to 0
@@ -63,6 +63,11 @@ int main(int argc, char *argv[]){
             }
         }
         for (i = 0; i < ctr; i++) {
+            /*
+            if (i == ctr - 1) {
+                strtok(newString[i], "\n");
+            }
+            */
             points_array[n_line].coordinate[i] = atof(newString[i]);
         }
 
@@ -85,13 +90,18 @@ int main(int argc, char *argv[]){
     //Start chronometer
     t = clock();
 
-    puts("\nInput points:");
-    print_points_array(points_array, n_line);
+    //puts("\nInput points:");
+    //print_points_array(points_array, n_line);
 
 
     while (n_iteration < 1 || isOK < n_clusters) {
 
-        printf("\n%d iteration:\n", n_iteration);
+    //Take partial time
+    t_part = clock() - t;
+
+    double partial_time_taken = ((double)t_part)/CLOCKS_PER_SEC;
+
+        printf("Iteration %d (partial time: %lf s)\n", n_iteration, partial_time_taken);
 
         if (n_iteration == 0) {
             for (i = 0; i < n_clusters; i++) {
@@ -107,16 +117,16 @@ int main(int argc, char *argv[]){
             points_array[i].cluster_id = assign_cluster(points_array[i], actual_centroids_array, n_clusters);
         }
 
-        puts("\n\tCentroids:");
-        print_points_array(actual_centroids_array, n_clusters);
+        //puts("\n\tCentroids:");
+        //print_points_array(actual_centroids_array, n_clusters);
 
-        puts("\n\tCluster assignment:");
-        print_points_array(points_array, n_line);
+        //puts("\n\tCluster assignment:");
+        //print_points_array(points_array, n_line);
 
 
         isOK = 0;
         if (n_iteration > 0){
-            puts("\n\tNew-old centroids distances:");
+            //puts("\n\tNew-old centroids distances:");
             for (i = 0; i < n_clusters; i++) {
                 double distance = calc_euclidean_distance(previous_centroids_array[i], actual_centroids_array[i]);
                 printf("\t%d: error = %lf\n", actual_centroids_array[i].cluster_id, distance);
@@ -167,7 +177,8 @@ void print_points_array(Point *points_array, int n_line) {
     for (i = 0; i < n_line; i++) {
         printf("\t%d: ", i + 1);
         for (j = 0; j < N_COORDINATES; j++) {
-            printf("%lf ", points_array[i].coordinate[j]);
+            //printf("%lf ", points_array[i].coordinate[j]);
+            printf("%.32f ", points_array[i].coordinate[j]);
         }
         printf("assigned to cluster %d\n", points_array[i].cluster_id);
     }
@@ -197,6 +208,7 @@ double calc_euclidean_distance(Point point, Point cluster) {
     for (i = 0; i < N_COORDINATES; i++) {
         distance_2 = distance_2 + pow((point.coordinate[i] - cluster.coordinate[i]), 2);
     }
+    //printf("ed: %.32f\n", distance_2);
     return sqrt(distance_2);
 }
 

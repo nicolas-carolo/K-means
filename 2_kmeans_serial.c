@@ -5,7 +5,7 @@
 #include <math.h>
 #include <time.h> 
 
-#define N_COORDINATES 10
+#define N_COORDINATES 115
 #define TOLERANCE 0.001
 
 typedef struct {
@@ -31,7 +31,7 @@ int main(int argc, char *argv[]){
     int n_iteration = 0;
     int isOK = 0;
     Point *points_array = malloc(d * sizeof(Point));
-    clock_t t;
+    clock_t t, t_part;
 
     if (argc != 3) {
         printf("USAGE: %s [input file] [n. cluster]\n", argv[0]);
@@ -53,7 +53,7 @@ int main(int argc, char *argv[]){
         ctr = 0;
         for (i = 0; i <= (strlen(buf)); i++) {
         // if space or NULL found, assign NULL into newString[ctr]
-            if (buf[i] == ' ' || buf[i] == '\0' || buf[i] == '\n') {
+            if (buf[i] == ',' || buf[i] == ' ' || buf[i] == '\0' || buf[i] == '\n') {
                 newString[ctr][j]='\0';
                 ctr++;  //for next word
                 j = 0;    //for next word, init index to 0
@@ -91,7 +91,12 @@ int main(int argc, char *argv[]){
 
     while (n_iteration < 1 || isOK < n_clusters) {
 
-        printf("Iteration %d\n", n_iteration);
+        //Take partial time
+        t_part = clock() - t;
+
+        double partial_time_taken = ((double)t_part)/CLOCKS_PER_SEC;
+
+        printf("Iteration %d (partial time: %lf s)\n", n_iteration, partial_time_taken);
 
         if (n_iteration == 0) {
             for (i = 0; i < n_clusters; i++) {

@@ -5,7 +5,7 @@
 #include <math.h>
 #include <time.h> 
 
-#define N_COORDINATES 2
+#define N_COORDINATES 3
 #define TOLERANCE 0.001
 
 typedef struct {
@@ -16,7 +16,7 @@ typedef struct {
 
 void print_points_array(Point *points_array, int n_line);
 int assign_cluster(Point point, Point *previous_centroids_array, int n_clusters);
-double calc_euclidean_distance(Point point, Point cluster);
+double calc_euclidean_distance_2(Point point, Point cluster);
 Point *calc_centroids(Point *points_array, int n_line, int n_clusters);
 
 
@@ -31,7 +31,7 @@ int main(int argc, char *argv[]){
     int n_iteration = 0;
     int isOK = 0;
     Point *points_array = malloc(d * sizeof(Point));
-    clock_t t;
+    clock_t t, t_part;
 
     if (argc != 3) {
         printf("USAGE: %s [input file] [n. cluster]\n", argv[0]);
@@ -91,7 +91,12 @@ int main(int argc, char *argv[]){
 
     while (n_iteration < 1 || isOK < n_clusters) {
 
-        printf("\n%d iteration:\n", n_iteration);
+    //Take partial time
+    t_part = clock() - t;
+
+    double partial_time_taken = ((double)t_part)/CLOCKS_PER_SEC;
+
+        printf("Iteration %d (partial time: %lf s)\n", n_iteration, partial_time_taken);
 
         if (n_iteration == 0) {
             for (i = 0; i < n_clusters; i++) {
@@ -107,18 +112,18 @@ int main(int argc, char *argv[]){
             points_array[i].cluster_id = assign_cluster(points_array[i], actual_centroids_array, n_clusters);
         }
 
-        puts("\n\tCentroids:");
-        print_points_array(actual_centroids_array, n_clusters);
+        //puts("\n\tCentroids:");
+        //print_points_array(actual_centroids_array, n_clusters);
 
-        puts("\n\tCluster assignment:");
-        print_points_array(points_array, n_line);
+        //puts("\n\tCluster assignment:");
+        //print_points_array(points_array, n_line);
 
 
         isOK = 0;
         if (n_iteration > 0){
-            puts("\n\tNew-old centroids distances:");
+            //puts("\n\tNew-old centroids distances:");
             for (i = 0; i < n_clusters; i++) {
-                double distance = calc_euclidean_distance(previous_centroids_array[i], actual_centroids_array[i]);
+                double distance = sqrt(calc_euclidean_distance_2(previous_centroids_array[i], actual_centroids_array[i]));
                 printf("\t%d: error = %lf\n", actual_centroids_array[i].cluster_id, distance);
                 previous_centroids_array[i] = actual_centroids_array[i];
                 if (distance <= TOLERANCE) {
@@ -177,10 +182,10 @@ void print_points_array(Point *points_array, int n_line) {
 
 int assign_cluster(Point point, Point *actual_centroids_array, int n_clusters) {
     int i;
-    double min_distance = calc_euclidean_distance(point, actual_centroids_array[0]);
+    double min_distance = calc_euclidean_distance_2(point, actual_centroids_array[0]);
     int cluster_id = actual_centroids_array[0].cluster_id;
     for (i = 1; i < n_clusters; i++) {
-        double distance = calc_euclidean_distance(point, actual_centroids_array[i]);
+        double distance = calc_euclidean_distance_2(point, actual_centroids_array[i]);
         if (distance < min_distance) {
             min_distance = distance;
             cluster_id = actual_centroids_array[i].cluster_id;
@@ -191,13 +196,16 @@ int assign_cluster(Point point, Point *actual_centroids_array, int n_clusters) {
 
 
 
-double calc_euclidean_distance(Point point, Point cluster) {
+/**
+* calculate distance^2
+*/ 
+double calc_euclidean_distance_2(Point point, Point cluster) {
     int i;
     double distance_2 = 0;
     for (i = 0; i < N_COORDINATES; i++) {
         distance_2 = distance_2 + pow((point.coordinate[i] - cluster.coordinate[i]), 2);
     }
-    return sqrt(distance_2);
+    return distance_2;
 }
 
 
