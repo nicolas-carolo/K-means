@@ -4,8 +4,8 @@ import random
 def main():
     min_value = -1000
     max_value = 1000
-    coordinate_dimension = 115
-    n_coordinates = 50000
+    coordinate_dimension = 20
+    n_coordinates = 100
     f = open("input.csv","w+")
     for i in range(n_coordinates):
         for j in range(coordinate_dimension):

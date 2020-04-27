@@ -5,7 +5,7 @@
 #include <math.h>
 #include <time.h> 
 
-#define N_COORDINATES 115
+#define N_COORDINATES 20
 #define TOLERANCE 0.001
 
 typedef struct {

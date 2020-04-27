@@ -6,7 +6,7 @@
 #include <time.h>
 #include <omp.h>
 
-#define N_COORDINATES 2
+#define N_COORDINATES 20
 #define TOLERANCE 0.001
 
 typedef struct {
@@ -95,7 +95,7 @@ int main(int argc, char *argv[]){
         if (tid == 0) {
             printf("\nNumber of threads: %d\n", n_threads);
             printf("\nInput points (from %d):\n", tid);
-            print_points_array(points_array, n_line);
+            //print_points_array(points_array, n_line);
             puts("");
         }
     }
@@ -114,10 +114,14 @@ int main(int argc, char *argv[]){
         if (n_iteration == 0) {
             int centroid_index = 0;
             int index_factor = get_index_factor(n_line, n_clusters);
-            int chunk = 1;
+            int chunk = 5;
             for (i = 0; i < n_clusters; i++) {
-                for (j = 0; j < N_COORDINATES; j++) {
-                    actual_centroids_array[i].coordinate[j] = points_array[centroid_index].coordinate[j];
+                #pragma omp parallel shared(actual_centroids_array,points_array,chunk)
+                {
+                    #pragma omp for schedule(dynamic,chunk)
+                    for (j = 0; j < N_COORDINATES; j++) {
+                        actual_centroids_array[i].coordinate[j] = points_array[centroid_index].coordinate[j];
+                    }
                 }
                 actual_centroids_array[i].cluster_id = i + 1;
                 printf("(tid %d) cluster %d: point %d\n", tid, i + 1, centroid_index + 1);
@@ -126,7 +130,23 @@ int main(int argc, char *argv[]){
         } else {
             memcpy(actual_centroids_array, calc_centroids(points_array, n_line, n_clusters), n_clusters * sizeof(Point));
         }
-        
+
+
+        /*
+        for (i = 0; i < n_clusters; i++) {
+            if (actual_centroids_array[i].cluster_id != -1) {
+                printf("\t\t%d: ", actual_centroids_array[i].cluster_id);
+                for (j = 0; j < N_COORDINATES; j++) {
+                    printf("%lf ", actual_centroids_array[i].coordinate[j]);
+                }
+                printf("\n");
+            } else {
+                printf("\t\t%d: dropped because empty\n", i + 1);
+            }
+        }
+        return 0;
+        */
+
 
         for (i = 0; i < n_line; i++) {
             points_array[i].cluster_id = assign_cluster(points_array[i], actual_centroids_array, n_clusters);
