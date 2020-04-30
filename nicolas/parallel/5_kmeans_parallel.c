@@ -4,7 +4,7 @@
 #include <string.h>
 #include <math.h>
 #include <time.h>
-#include <omp.h>
+#include <omp.h> 
 
 #define N_COORDINATES 115
 #define TOLERANCE 0.001
@@ -32,7 +32,7 @@ int main(int argc, char *argv[]){
     int n_iteration = 0;
     int isOK = 0;
     Point *points_array = malloc(d * sizeof(Point));
-    clock_t t, t_part, t_iteration;
+    clock_t t, t_part;
     int n_threads, tid;
 
     if (argc != 3) {
@@ -66,6 +66,11 @@ int main(int argc, char *argv[]){
             }
         }
         for (i = 0; i < ctr; i++) {
+            /*
+            if (i == ctr - 1) {
+                strtok(newString[i], "\n");
+            }
+            */
             points_array[n_line].coordinate[i] = atof(newString[i]);
         }
 
@@ -100,21 +105,21 @@ int main(int argc, char *argv[]){
         }
     }
 
+    //puts("\nInput points:");
+    //print_points_array(points_array, n_line);
+
 
     while (n_iteration < 1 || isOK < n_clusters) {
 
-        //Take partial time
-        t_part = clock() - t;
-        t_iteration = clock();
+    //Take partial time
+    t_part = clock() - t;
 
-        double partial_time_taken = ((double)t_part)/CLOCKS_PER_SEC;
+    double partial_time_taken = ((double)t_part)/CLOCKS_PER_SEC;
 
         printf("Iteration %d (partial time: %lf s)\n", n_iteration, partial_time_taken);
 
         if (n_iteration == 0) {
             int centroid_index = 0;
-            int index_factor = get_index_factor(n_line, n_clusters);
-            // TODO function calc chunk
             int chunk;
             if (N_COORDINATES % n_threads == 0) {
                 chunk = N_COORDINATES / n_threads;
@@ -129,32 +134,15 @@ int main(int argc, char *argv[]){
                         actual_centroids_array[i].coordinate[j] = points_array[centroid_index].coordinate[j];
                     }
                 }
+                
                 actual_centroids_array[i].cluster_id = i + 1;
-                printf("(tid %d) cluster %d: point %d\n", tid, i + 1, centroid_index + 1);
-                centroid_index += index_factor;
+                //printf("index %d: %d\n", i + 1, centroid_index + 1);
+                centroid_index += get_index_factor(n_line, n_clusters);
             }
         } else {
             memcpy(actual_centroids_array, calc_centroids(points_array, n_line, n_clusters), n_clusters * sizeof(Point));
         }
-
-
-        /*
-        for (i = 0; i < n_clusters; i++) {
-            if (actual_centroids_array[i].cluster_id != -1) {
-                printf("\t\t%d: ", actual_centroids_array[i].cluster_id);
-                for (j = 0; j < N_COORDINATES; j++) {
-                    printf("%lf ", actual_centroids_array[i].coordinate[j]);
-                }
-                printf("\n");
-            } else {
-                printf("\t\t%d: dropped because empty\n", i + 1);
-            }
-        }
-        return 0;
-        */
-
-
-        //TODO
+        
         int chunk;
         if (n_line % n_threads == 0) {
             chunk = n_line / n_threads;
@@ -169,7 +157,6 @@ int main(int argc, char *argv[]){
             }
         }
 
-
         //puts("\n\tCentroids:");
         //print_points_array(actual_centroids_array, n_clusters);
 
@@ -180,17 +167,22 @@ int main(int argc, char *argv[]){
         isOK = 0;
         if (n_iteration > 0){
             //puts("\n\tNew-old centroids distances:");
-            for (i = 0; i < n_clusters; i++) {
-                double distance = calc_euclidean_distance(previous_centroids_array[i], actual_centroids_array[i]);
-                if (! isnan(distance)) {
-                    printf("\tcluster %d: error = %lf\n", actual_centroids_array[i].cluster_id, distance);
-                } else {
-                    printf("\tcluster %d: dropped because empty\n", actual_centroids_array[i].cluster_id);
-                    actual_centroids_array[i].cluster_id = -1;
-                }
-                previous_centroids_array[i] = actual_centroids_array[i];
-                if (distance <= TOLERANCE || !(isnormal(distance))) {
-                    isOK++;
+            int chunk;
+            if (n_clusters % n_threads == 0) {
+                chunk = n_clusters / n_threads;
+            } else {
+                chunk = (n_clusters / n_threads) + 1;
+            }   
+            #pragma omp parallel shared(previous_centroids_array, points_array, chunk)
+            {
+                #pragma omp for schedule(static,chunk)
+                for (i = 0; i < n_clusters; i++) {
+                    double distance = calc_euclidean_distance(previous_centroids_array[i], actual_centroids_array[i]);
+                    printf("\t%d: error = %lf\n", actual_centroids_array[i].cluster_id, distance);
+                    previous_centroids_array[i] = actual_centroids_array[i];
+                    if (distance <= TOLERANCE) {
+                        isOK++;
+                    }
                 }
             } 
         } else {
@@ -200,9 +192,6 @@ int main(int argc, char *argv[]){
         }
 
         n_iteration++;
-        t_iteration = clock() - t_iteration;
-        double iteration_time = ((double)t_iteration)/CLOCKS_PER_SEC;
-        printf("\tIteration time: %lf s\n", iteration_time);
     }
 
     //Stop chronometer
@@ -210,25 +199,19 @@ int main(int argc, char *argv[]){
 
     double time_taken = ((double)t)/CLOCKS_PER_SEC;
 
-    puts("\n\tCluster assignment:");
-    print_points_array(points_array, n_line);
-
     puts("\n------------------------------------------------------");
     puts("\nPROCESS ENDED SUCCESSFULLY!\n");
     printf("\tExecution time: %lf s\n", time_taken);
     printf("\tNumber of iterations: %d\n", n_iteration - 1);
     printf("\tCentroids:\n");
     for (i = 0; i < n_clusters; i++) {
-        if (actual_centroids_array[i].cluster_id != -1) {
-            printf("\t\t%d: ", actual_centroids_array[i].cluster_id);
-            for (j = 0; j < N_COORDINATES; j++) {
-                printf("%lf ", actual_centroids_array[i].coordinate[j]);
-            }
-            printf("\n");
-        } else {
-            printf("\t\t%d: dropped because empty\n", i + 1);
+        printf("\t\t%d: ", actual_centroids_array[i].cluster_id);
+        for (j = 0; j < N_COORDINATES; j++) {
+            printf("%lf ", actual_centroids_array[i].coordinate[j]);
         }
+        printf("\n");
     }
+
     puts("\n------------------------------------------------------\n");
     
 	free(points_array);
@@ -243,12 +226,10 @@ void print_points_array(Point *points_array, int n_line) {
     int j;
     for (i = 0; i < n_line; i++) {
         printf("\t%d: ", i + 1);
-        /*
         for (j = 0; j < N_COORDINATES; j++) {
             //printf("%lf ", points_array[i].coordinate[j]);
             printf("%.32f ", points_array[i].coordinate[j]);
         }
-        */
         printf("assigned to cluster %d\n", points_array[i].cluster_id);
     }
 }
@@ -267,12 +248,10 @@ int assign_cluster(Point point, Point *actual_centroids_array, int n_clusters) {
     double min_distance = calc_euclidean_distance(point, actual_centroids_array[0]);
     int cluster_id = actual_centroids_array[0].cluster_id;
     for (i = 1; i < n_clusters; i++) {
-        if (actual_centroids_array[i].cluster_id != -1) {
-            double distance = calc_euclidean_distance(point, actual_centroids_array[i]);
-            if (distance < min_distance) {
-                min_distance = distance;
-                cluster_id = actual_centroids_array[i].cluster_id;
-            }
+        double distance = calc_euclidean_distance(point, actual_centroids_array[i]);
+        if (distance < min_distance) {
+            min_distance = distance;
+            cluster_id = actual_centroids_array[i].cluster_id;
         }
     }
     return cluster_id;
@@ -296,31 +275,33 @@ double calc_euclidean_distance(Point point, Point cluster) {
 Point *calc_centroids(Point *points_array, int n_line, int n_clusters) {
     int i;
     int j;
-    //int chunk;
-    int n_threads = omp_get_num_threads();
-    if (n_line % n_threads == 0) {
-        chunk = n_line / n_threads;
-    } else {
-        chunk = (n_line / n_threads) + 1;
-    }
     Point *centroids = malloc(n_clusters * sizeof(Point));
     int n_points[n_clusters];
     int centroid_index;
     memset(n_points, 0, sizeof(n_points));
-    //#pragma omp parallel shared(n_points, chunk)
-    //{
-        //#pragma omp for schedule(static,chunk)
-        for (i = 0; i < n_line; i++) {
-            centroid_index = points_array[i].cluster_id - 1;
-            for (j = 0; j < N_COORDINATES; j++) {
-                if (n_points[centroid_index] == 0) {
-                    centroids[centroid_index].coordinate[j] = 0;
-                }
-                centroids[centroid_index].coordinate[j] += points_array[i].coordinate[j];
+
+    /*
+    for (i = 0; i < n_clusters; i++) {
+        printf("%d %d\n", i+1, n_points[i]);
+    }
+    */
+    
+    for (i = 0; i < n_line; i++) {
+        centroid_index = points_array[i].cluster_id - 1;
+        for (j = 0; j < N_COORDINATES; j++) {
+            if (n_points[centroid_index] == 0) {
+                centroids[centroid_index].coordinate[j] = 0;
             }
-            n_points[centroid_index]++;
+            centroids[centroid_index].coordinate[j] += points_array[i].coordinate[j];
         }
-    //}  
+        n_points[centroid_index]++;
+    }
+
+    /*
+    for (i = 0; i < n_clusters; i++) {
+        printf("%d %d\n", i+1, n_points[i]);
+    }
+    */    
 
     for (i = 0; i < n_clusters; i++) {
         for (j = 0; j < N_COORDINATES; j++) {
