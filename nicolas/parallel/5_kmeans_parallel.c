@@ -32,7 +32,8 @@ int main(int argc, char *argv[]){
     int n_iteration = 0;
     int isOK = 0;
     Point *points_array = malloc(d * sizeof(Point));
-    clock_t t, t_part;
+    // clock_t t, t_part;
+    double t, t_part;
     int n_threads, tid;
 
     if (argc != 3) {
@@ -91,7 +92,8 @@ int main(int argc, char *argv[]){
     fclose(fin);
 
     //Start chronometer
-    t = clock();
+    //t = clock();
+    t = omp_get_wtime();
 
     #pragma omp parallel shared(n_threads, tid)
     {
@@ -112,11 +114,12 @@ int main(int argc, char *argv[]){
     while (n_iteration < 1 || isOK < n_clusters) {
 
     //Take partial time
-    t_part = clock() - t;
+    t_part = omp_get_wtime() - t;
 
-    double partial_time_taken = ((double)t_part)/CLOCKS_PER_SEC;
+    //double partial_time_taken = ((double)t_part)/CLOCKS_PER_SEC;
 
-        printf("Iteration %d (partial time: %lf s)\n", n_iteration, partial_time_taken);
+        //printf("Iteration %d (partial time: %lf s)\n", n_iteration, partial_time_taken);
+        printf("Iteration %d (partial time: %lf s)\n", n_iteration, t_part);
 
         if (n_iteration == 0) {
             int centroid_index = 0;
@@ -195,13 +198,14 @@ int main(int argc, char *argv[]){
     }
 
     //Stop chronometer
-    t = clock() - t;
+    t = omp_get_wtime() - t;
 
-    double time_taken = ((double)t)/CLOCKS_PER_SEC;
+    //double time_taken = ((double)t)/CLOCKS_PER_SEC;
 
     puts("\n------------------------------------------------------");
     puts("\nPROCESS ENDED SUCCESSFULLY!\n");
-    printf("\tExecution time: %lf s\n", time_taken);
+    // printf("\tExecution time: %lf s\n", time_taken);
+    printf("\tExecution time: %lf s\n", t);
     printf("\tNumber of iterations: %d\n", n_iteration - 1);
     printf("\tCentroids:\n");
     for (i = 0; i < n_clusters; i++) {
