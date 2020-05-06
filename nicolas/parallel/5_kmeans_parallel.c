@@ -278,24 +278,18 @@ double calc_euclidean_distance(Point point, Point cluster) {
 Point *calc_centroids(Point *points_array, int n_line, int n_clusters, int n_threads) {
     int i;
     int j;
-    Point *centroids = malloc(n_clusters * sizeof(Point));
+    //Point *centroids = malloc(n_clusters * sizeof(Point));
+    Point *centroids;
+    centroids = (Point*)calloc(n_clusters, sizeof(Point));
     // Point centroids[n_clusters];
     int n_points[n_clusters];
     int centroid_index;
     memset(n_points, 0, sizeof(n_points));
-
     /*
     for (i = 0; i < n_clusters; i++) {
         printf("%d %d\n", i+1, n_points[i]);
     }
     */
-
-    /*int chunk;
-    if (n_line % n_threads == 0) {
-        chunk = n_line / n_threads;
-    } else {
-        chunk = (n_line / n_threads) + 1;
-    }*/
 
     for (i = 0; i < n_line; i++) {
         centroid_index = points_array[i].cluster_id - 1;
@@ -331,9 +325,5 @@ Point *calc_centroids(Point *points_array, int n_line, int n_clusters, int n_thr
         centroids[i].cluster_id = i + 1;
     }
 
-    //Point *ret_centroids = malloc(n_clusters * sizeof(Point));
-    //memcpy(ret_centroids, centroids, n_clusters * sizeof(Point));
-
-    //return ret_centroids;
     return centroids;
 }
