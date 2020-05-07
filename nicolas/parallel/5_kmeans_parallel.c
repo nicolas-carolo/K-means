@@ -291,14 +291,25 @@ Point *calc_centroids(Point *points_array, int n_line, int n_clusters, int n_thr
     }
     */
 
+    int chunk;
+    /*if (N_COORDINATES % n_threads == 0) {
+        chunk = N_COORDINATES / n_threads;
+    } else {
+        chunk = (N_COORDINATES / n_threads) + 1;
+    }*/
+
     for (i = 0; i < n_line; i++) {
         centroid_index = points_array[i].cluster_id - 1;
-        for (j = 0; j < N_COORDINATES; j++) {
-            if (n_points[centroid_index] == 0) {
-                centroids[centroid_index].coordinate[j] = 0;
+        //#pragma omp parallel shared(centroids, chunk)
+        //{
+            //#pragma omp for schedule(static,chunk)
+            for (j = 0; j < N_COORDINATES; j++) {
+                if (n_points[centroid_index] == 0) {
+                    centroids[centroid_index].coordinate[j] = 0;
+                }
+                centroids[centroid_index].coordinate[j] += points_array[i].coordinate[j];
             }
-            centroids[centroid_index].coordinate[j] += points_array[i].coordinate[j];
-        }
+        //}
         n_points[centroid_index]++;
     }
 
@@ -308,7 +319,7 @@ Point *calc_centroids(Point *points_array, int n_line, int n_clusters, int n_thr
     }
     */    
 
-    int chunk;
+    //int chunk;
     if (N_COORDINATES % n_threads == 0) {
         chunk = N_COORDINATES / n_threads;
     } else {
