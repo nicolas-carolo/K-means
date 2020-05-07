@@ -8,3 +8,5 @@ nicolas/5_kmeans_serial
 nicolas/6_kmeans_serial
 nicolas/verbose_kmeans_serial
 nicolas/2_verbose_kmeans_serial
+nicolas/parallel/5_kmeans_parallel
+nicolas/parallel/kmeans_parallel
