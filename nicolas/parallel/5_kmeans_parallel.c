@@ -146,12 +146,12 @@ int main(int argc, char *argv[]){
                 centroid_index += get_index_factor(n_line, n_clusters);
             }
             t_for = omp_get_wtime() - t_for;
-            printf("\tTime centroids assignment: %lf\n", t_for);
+            printf("\tTime centroids calculation: %lf\n", t_for);
         } else {
             t_for = omp_get_wtime();
             memcpy(actual_centroids_array, calc_centroids(points_array, n_line, n_clusters, n_threads), n_clusters * sizeof(Point));
             t_for = omp_get_wtime() - t_for;
-            printf("\tTime centroids assignment: %lf\n", t_for);
+            printf("\tTime centroids calculation: %lf\n", t_for);
         }
         
         int chunk;
@@ -291,7 +291,6 @@ double calc_euclidean_distance(Point point, Point cluster) {
 
 
 Point *calc_centroids(Point *points_array, int n_line, int n_clusters, int n_threads) {
-    double t_for = omp_get_wtime();
     int i;
     int j;
     //Point *centroids = malloc(n_clusters * sizeof(Point));
@@ -310,9 +309,9 @@ Point *calc_centroids(Point *points_array, int n_line, int n_clusters, int n_thr
     for (i = 0; i < n_line; i++) {
         centroid_index = points_array[i].cluster_id - 1;
         for (j = 0; j < N_COORDINATES; j++) {
-            if (n_points[centroid_index] == 0) {
+            /*if (n_points[centroid_index] == 0) {
                 centroids[centroid_index].coordinate[j] = 0;
-            }
+            }*/
             centroids[centroid_index].coordinate[j] += points_array[i].coordinate[j];
         }
         n_points[centroid_index]++;
@@ -340,8 +339,6 @@ Point *calc_centroids(Point *points_array, int n_line, int n_clusters, int n_thr
         }
         centroids[i].cluster_id = i + 1;
     }
-    t_for = omp_get_wtime() - t_for;
-    printf("Time centroids calculation: %lf\n", t_for);
 
     return centroids;
 }

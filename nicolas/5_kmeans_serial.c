@@ -117,13 +117,13 @@ int main(int argc, char *argv[]){
             }
             t_for = clock() - t_for;
             double t_for_taken = ((double)t_for)/CLOCKS_PER_SEC;
-            printf("Time centroids assignment: %lf\n", t_for_taken);
+            printf("Time centroids calculation: %lf\n", t_for_taken);
         } else {
             t_for = clock();
             memcpy(actual_centroids_array, calc_centroids(points_array, n_line, n_clusters), n_clusters * sizeof(Point));
             t_for = clock() - t_for;
             double t_for_taken = ((double)t_for)/CLOCKS_PER_SEC;
-            printf("Time centroids assignment: %lf\n", t_for_taken);
+            printf("Time centroids calculation: %lf\n", t_for_taken);
         }
         
         t_for = clock();
@@ -244,7 +244,6 @@ double calc_euclidean_distance(Point point, Point cluster) {
 
 
 Point *calc_centroids(Point *points_array, int n_line, int n_clusters) {
-    clock_t t_for = clock();
     int i;
     int j;
     Point *centroids = malloc(n_clusters * sizeof(Point));
@@ -281,10 +280,6 @@ Point *calc_centroids(Point *points_array, int n_line, int n_clusters) {
         }
         centroids[i].cluster_id = i + 1;
     }
-
-    t_for = clock() - t_for;
-    double t_for_taken = ((double)t_for)/CLOCKS_PER_SEC;
-    printf("Time centroids calculation: %lf\n", t_for_taken);
 
     return centroids;
 }
