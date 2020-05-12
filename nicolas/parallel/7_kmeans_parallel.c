@@ -310,9 +310,9 @@ Point *calc_centroids(Point *points_array, int n_line, int n_clusters, int n_thr
     for (i = 0; i < n_line; i++) {
         centroid_index = points_array[i].cluster_id - 1;
         for (j = 0; j < N_COORDINATES; j++) {
-            if (n_points[centroid_index] == 0) {
+            /*if (n_points[centroid_index] == 0) {
                 centroids[centroid_index].coordinate[j] = 0;
-            }
+            }*/
             centroids[centroid_index].coordinate[j] += points_array[i].coordinate[j];
         }
         n_points[centroid_index]++;
@@ -341,7 +341,7 @@ Point *calc_centroids(Point *points_array, int n_line, int n_clusters, int n_thr
         centroids[i].cluster_id = i + 1;
     }
     t_for = omp_get_wtime() - t_for;
-    printf("Time centroids calculation: %lf\n", t_for);
+    printf("\tTime centroids calculation: %lf\n", t_for);
 
     return centroids;
 }

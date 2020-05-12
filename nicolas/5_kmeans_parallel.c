@@ -146,12 +146,12 @@ int main(int argc, char *argv[]){
                 centroid_index += get_index_factor(n_line, n_clusters);
             }
             t_for = omp_get_wtime() - t_for;
-            printf("\tTime centroids assignment: %lf\n", t_for);
+            printf("Time centroids assignment: %lf\n", t_for);
         } else {
             t_for = omp_get_wtime();
             memcpy(actual_centroids_array, calc_centroids(points_array, n_line, n_clusters, n_threads), n_clusters * sizeof(Point));
             t_for = omp_get_wtime() - t_for;
-            printf("\tTime centroids assignment: %lf\n", t_for);
+            printf("Time centroids assignment: %lf\n", t_for);
         }
         
         int chunk;
@@ -169,7 +169,7 @@ int main(int argc, char *argv[]){
             }
         }
         t_for = omp_get_wtime() - t_for;
-        printf("\tTime clusters assignment: %lf\n", t_for);   //speedup up to 4 with 8 threads
+        printf("Time clusters assignment: %lf\n", t_for);   //speedup up to 4 with 8 threads
 
         //puts("\n\tCentroids:");
         //print_points_array(actual_centroids_array, n_clusters);
@@ -201,7 +201,7 @@ int main(int argc, char *argv[]){
                 }
             }
             t_for = omp_get_wtime() - t_for;
-            printf("\tTime errors calculation: %lf\n", t_for);    //speedup up to 0.25
+            printf("Time errors calculation: %lf\n", t_for);    //speedup up to 0.25
         } else {
             for (i = 0; i < n_clusters; i++) {
                 previous_centroids_array[i] = actual_centroids_array[i];
@@ -310,9 +310,9 @@ Point *calc_centroids(Point *points_array, int n_line, int n_clusters, int n_thr
     for (i = 0; i < n_line; i++) {
         centroid_index = points_array[i].cluster_id - 1;
         for (j = 0; j < N_COORDINATES; j++) {
-            if (n_points[centroid_index] == 0) {
+            /*if (n_points[centroid_index] == 0) {
                 centroids[centroid_index].coordinate[j] = 0;
-            }
+            }*/
             centroids[centroid_index].coordinate[j] += points_array[i].coordinate[j];
         }
         n_points[centroid_index]++;
@@ -341,7 +341,7 @@ Point *calc_centroids(Point *points_array, int n_line, int n_clusters, int n_thr
         centroids[i].cluster_id = i + 1;
     }
     t_for = omp_get_wtime() - t_for;
-    printf("Time centroids calculation: %lf\n", t_for);
+    printf("\tTime centroids calculation: %lf\n", t_for);
 
     return centroids;
 }
