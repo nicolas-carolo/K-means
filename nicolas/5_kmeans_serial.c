@@ -144,7 +144,6 @@ int main(int argc, char *argv[]){
         isOK = 0;
         if (n_iteration > 0){
             //puts("\n\tNew-old centroids distances:");
-            t_for = clock();
             for (i = 0; i < n_clusters; i++) {
                 double distance = calc_euclidean_distance(previous_centroids_array[i], actual_centroids_array[i]);
                 printf("\t%d: error = %lf\n", actual_centroids_array[i].cluster_id, distance);
@@ -153,9 +152,6 @@ int main(int argc, char *argv[]){
                     isOK++;
                 }
             }
-            t_for = clock() - t_for;
-            double t_for_taken = ((double)t_for)/CLOCKS_PER_SEC;
-            printf("Time errors calculation: %lf\n", t_for_taken);
 
         } else {
             for (i = 0; i < n_clusters; i++) {

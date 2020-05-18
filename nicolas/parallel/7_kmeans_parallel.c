@@ -5,11 +5,11 @@
 #include <time.h>
 #include <omp.h> 
 
-#define N_COORDINATES 115
+#define DIMENSION 115
 #define TOLERANCE 0.001
 
 typedef struct {
-    double coordinate[N_COORDINATES];
+    double coordinate[DIMENSION];
     int cluster_id;
 } Point;
 
@@ -43,7 +43,7 @@ int main(int argc, char *argv[]){
     int n_clusters = atoi(argv[2]);
     Point previous_centroids_array[n_clusters];
     Point actual_centroids_array[n_clusters];
-    char newString[N_COORDINATES][512];
+    char newString[DIMENSION][512];
     char buf[16384];
 
     if (!(fin = fopen(argv[1], "r"))) {
@@ -125,28 +125,25 @@ int main(int argc, char *argv[]){
         if (n_iteration == 0) {
             int centroid_index = 0;
             /*int chunk;
-            if (N_COORDINATES % n_threads == 0) {
-                chunk = N_COORDINATES / n_threads;
+            if (DIMENSION % n_threads == 0) {
+                chunk = DIMENSION / n_threads;
             } else {
-                chunk = (N_COORDINATES / n_threads) + 1;
+                chunk = (DIMENSION / n_threads) + 1;
             }*/
-            t_for = omp_get_wtime();
+            t_for = clock();
             // not so good!
             for (i = 0; i < n_clusters; i++) {
-                #pragma omp parallel shared(actual_centroids_array)
-                {
-                    #pragma omp for schedule(dynamic, 1)
-                    for (j = 0; j < N_COORDINATES; j++) {
-                        actual_centroids_array[i].coordinate[j] = points_array[centroid_index].coordinate[j];
-                    }
+                for (j = 0; j < DIMENSION; j++) {
+                    actual_centroids_array[i].coordinate[j] = points_array[centroid_index].coordinate[j];
                 }
                 
                 actual_centroids_array[i].cluster_id = i + 1;
                 //printf("index %d: %d\n", i + 1, centroid_index + 1);
                 centroid_index += get_index_factor(n_line, n_clusters);
             }
-            t_for = omp_get_wtime() - t_for;
-            printf("\tTime centroids calculation: %lf\n", t_for);
+            t_for = clock() - t_for;
+            double t_for_taken = ((double)t_for)/CLOCKS_PER_SEC;
+            printf("Time centroids calculation: %lf\n", t_for_taken);
         } else {
             t_for = omp_get_wtime();
             memcpy(actual_centroids_array, calc_centroids(points_array, n_line, n_clusters, n_threads), n_clusters * sizeof(Point));
@@ -187,21 +184,15 @@ int main(int argc, char *argv[]){
             } else {
                 chunk = (n_clusters / n_threads) + 1;
             }*/
-            t_for = omp_get_wtime();
-            #pragma omp parallel shared(previous_centroids_array, points_array)
-            {
-                #pragma omp for schedule(dynamic, 1)
-                for (i = 0; i < n_clusters; i++) {
-                    double distance = calc_euclidean_distance(previous_centroids_array[i], actual_centroids_array[i]);
-                    printf("\t%d: error = %lf\n", actual_centroids_array[i].cluster_id, distance);
-                    previous_centroids_array[i] = actual_centroids_array[i];
-                    if (distance <= TOLERANCE) {
-                        isOK++;
-                    }
+            
+            for (i = 0; i < n_clusters; i++) {
+                double distance = calc_euclidean_distance(previous_centroids_array[i], actual_centroids_array[i]);
+                printf("\t%d: error = %lf\n", actual_centroids_array[i].cluster_id, distance);
+                previous_centroids_array[i] = actual_centroids_array[i];
+                if (distance <= TOLERANCE) {
+                    isOK++;
                 }
             }
-            t_for = omp_get_wtime() - t_for;
-            printf("\tTime errors calculation: %lf\n", t_for);    //speedup up to 0.25
         } else {
             for (i = 0; i < n_clusters; i++) {
                 previous_centroids_array[i] = actual_centroids_array[i];
@@ -224,7 +215,7 @@ int main(int argc, char *argv[]){
     printf("\tCentroids:\n");
     for (i = 0; i < n_clusters; i++) {
         printf("\t\t%d: ", actual_centroids_array[i].cluster_id);
-        for (j = 0; j < N_COORDINATES; j++) {
+        for (j = 0; j < DIMENSION; j++) {
             printf("%lf ", actual_centroids_array[i].coordinate[j]);
         }
         printf("\n");
@@ -244,7 +235,7 @@ void print_points_array(Point *points_array, int n_line) {
     int j;
     for (i = 0; i < n_line; i++) {
         printf("\t%d: ", i + 1);
-        for (j = 0; j < N_COORDINATES; j++) {
+        for (j = 0; j < DIMENSION; j++) {
             //printf("%lf ", points_array[i].coordinate[j]);
             printf("%.32f ", points_array[i].coordinate[j]);
         }
@@ -281,7 +272,7 @@ double calc_euclidean_distance(Point point, Point cluster) {
     int i;
     double distance_2 = 0;
     //#pragma omp parallel for reduction(+:distance_2)
-    for (i = 0; i < N_COORDINATES; i++) {
+    for (i = 0; i < DIMENSION; i++) {
         distance_2 = distance_2 + pow((point.coordinate[i] - cluster.coordinate[i]), 2);
     }
     //printf("ed: %.32f\n", distance_2);
@@ -291,14 +282,15 @@ double calc_euclidean_distance(Point point, Point cluster) {
 
 
 Point *calc_centroids(Point *points_array, int n_line, int n_clusters, int n_threads) {
-    int i;
-    int j;
+    //int i;
+    //int j;
+    //int k;
     //Point *centroids = malloc(n_clusters * sizeof(Point));
     Point *centroids;
     centroids = (Point*)calloc(n_clusters, sizeof(Point));
     // Point centroids[n_clusters];
     int n_points[n_clusters];
-    int centroid_index;
+    //int centroid_index;
     memset(n_points, 0, sizeof(n_points));
     /*
     for (i = 0; i < n_clusters; i++) {
@@ -306,12 +298,37 @@ Point *calc_centroids(Point *points_array, int n_line, int n_clusters, int n_thr
     }
     */
 
-    for (i = 0; i < n_line; i++) {
-        centroid_index = points_array[i].cluster_id - 1;
-        for (j = 0; j < N_COORDINATES; j++) {
-            centroids[centroid_index].coordinate[j] += points_array[i].coordinate[j];
+    #pragma omp parallel
+    {
+        Point *part_centroids;
+        part_centroids = (Point*)calloc(n_clusters, sizeof(Point));
+        int part_n_points[n_clusters];
+        memset(part_n_points, 0, sizeof(part_n_points));
+        int centroid_index;
+        #pragma omp for schedule(static) nowait
+        for (int i = 0; i < n_line; i++) {
+            centroid_index = points_array[i].cluster_id - 1;
+            part_n_points[centroid_index]++;
+            for (int j = 0; j < DIMENSION; j++) {
+                //centroids[centroid_index].coordinate[j] += points_array[i].coordinate[j];
+                part_centroids[centroid_index].coordinate[j] += points_array[i].coordinate[j];
+            }
+            // n_points[centroid_index]++;
         }
-        n_points[centroid_index]++;
+
+        #pragma omp for schedule(static) collapse(2) ordered
+        for (int i = 0; i < n_threads; i++) {
+            for (int j = 0; j < n_clusters; j++) {
+                for (int k = 0; k < DIMENSION; k++) {
+                    #pragma omp ordered
+                    centroids[j].coordinate[k] += part_centroids[j].coordinate[k];
+                }
+            }
+        }
+        for (int i = 0; i < n_clusters; i++) {
+            #pragma omp critical
+            n_points[i] += part_n_points[i];
+        }
     }
 
     /*
@@ -321,18 +338,14 @@ Point *calc_centroids(Point *points_array, int n_line, int n_clusters, int n_thr
     */    
 
     /*int chunk;
-    if (N_COORDINATES % n_threads == 0) {
-        chunk = N_COORDINATES / n_threads;
+    if (DIMENSION % n_threads == 0) {
+        chunk = DIMENSION / n_threads;
     } else {
-        chunk = (N_COORDINATES / n_threads) + 1;
+        chunk = (DIMENSION / n_threads) + 1;
     }*/
-    for (i = 0; i < n_clusters; i++) {
-        #pragma omp parallel shared(centroids)
-        {
-            #pragma omp for schedule(dynamic, 1)
-            for (j = 0; j < N_COORDINATES; j++) {
-                centroids[i].coordinate[j] = centroids[i].coordinate[j] / (double)n_points[i];
-            }
+    for (int i = 0; i < n_clusters; i++) {
+        for (int j = 0; j < DIMENSION; j++) {
+            centroids[i].coordinate[j] = centroids[i].coordinate[j] / (double)n_points[i];
         }
         centroids[i].cluster_id = i + 1;
     }
