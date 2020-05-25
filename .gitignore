@@ -1,12 +1,5 @@
-nicolas/kmeans_serial_2d
-nicolas/kmeans_serial
-nicolas/2_kmeans_serial
-nicolas/3_kmeans_serial
-nicolas/4_kmeans_serial
-nicolas/4_1_kmeans_serial
-nicolas/5_kmeans_serial
-nicolas/6_kmeans_serial
-nicolas/verbose_kmeans_serial
-nicolas/2_verbose_kmeans_serial
-nicolas/parallel/5_kmeans_parallel
-nicolas/parallel/kmeans_parallel
+kmeans_serial
+kmeans_parallel
+attempts/5_kmeans_serial
+attempts/5_kmeans_parallel
+attempts/7_kmeans_parallel
