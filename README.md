@@ -16,7 +16,7 @@ $ ./kmeans_parallel <input csv> <number of clusters>
 ```
 
 ### macOS
-Install gcc-8:
+Install `gcc-8`:
 ```sh
 $ brew install gcc@8
 ```
