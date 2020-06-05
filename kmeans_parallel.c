@@ -129,7 +129,7 @@ int main(int argc, char *argv[]){
         t_for = omp_get_wtime();
         #pragma omp parallel shared(points_array)
         {
-            #pragma omp for schedule(dynamic,1)
+            #pragma omp for schedule(dynamic)
             for (i = 0; i < n_line; i++) {
                 points_array[i].cluster_id = assign_cluster(points_array[i], actual_centroids_array, n_clusters);
             }
