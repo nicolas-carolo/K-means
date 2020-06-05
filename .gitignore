@@ -4,3 +4,4 @@ attempts/5_kmeans_serial
 attempts/5_kmeans_parallel
 attempts/7_kmeans_parallel
 .DS_Store
+attempts/.DS_Store
